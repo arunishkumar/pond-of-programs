@@ -32,9 +32,17 @@ class ProgramLoader(object):
             program_list.update({
                 program_instance.program_name: program_class
             })
-
         return program_list
 
+
+    @staticmethod
+    def programInfoDict(program_instance):
+        return {
+                'name': program_instance.program_name,
+                'description': program_instance.description,
+                'inputs': program_instance.inputs,
+                'outputs': program_instance.outputs
+            }
 
     def programInfo(self, program_name, *args, **kwargs):
         program_instance = self._getProgramClass(program_name)()
@@ -45,31 +53,18 @@ class ProgramLoader(object):
 
     def programInfoText(self, program_name, *args, **kwargs):
         program_instance, inputs, outputs = self.programInfo(program_name)
-        inputs['types'] = [typ.__name__ for typ in inputs['types']]
-        outputs['types'] = [typ.__name__ for typ in outputs['types']]
-
-        program_info = {
-                'name': program_instance.program_name,
-                'description': program_instance.description,
-                'inputs': inputs,
-                'outputs': outputs
-            }
+        program_info_dict = self.programInfoDict(program_instance)
+        program_info_dict['inputs']['types'] = [typ.__name__ for typ in inputs['types']]
+        program_info_dict['outputs']['types'] = [typ.__name__ for typ in outputs['types']]
         
-        return program_info
+        return program_info_dict
 
     def programsInfoList(self, *args, **kwargs):
         program_list = []
         
         for program_name, _ in self.program_list.items():
-            program_instance, inputs, outputs = self.programInfo(program_name)
-            inputs['types'] = [typ.__name__ for typ in inputs['types']]
-            outputs['types'] = [typ.__name__ for typ in outputs['types']]
-
-            program_list.append({
-                'name': program_instance.program_name,
-                'inputs': inputs,
-                'outputs': outputs
-            })
+            program_info = self.programInfoText(program_name)
+            program_list.append(program_info)
         return program_list
 
     def runProgram(self, program_name, *args, **kwargs):

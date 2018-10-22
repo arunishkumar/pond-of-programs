@@ -48,7 +48,7 @@ class AbstractProgram(object):
         """
             Returns DESCRIPTION
         """
-        return description
+        return self.DESCRIPTION
 
     @property
     def program_name(self, *args, **kwargs):
