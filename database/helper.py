@@ -50,6 +50,7 @@ class ProgramLoader(object):
 
         program_info = {
                 'name': program_instance.program_name,
+                'description': program_instance.description,
                 'inputs': inputs,
                 'outputs': outputs
             }

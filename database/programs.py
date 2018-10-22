@@ -5,6 +5,7 @@ except:
     
 class SquareProgram(AbstractProgram):
     PROGRAM_NAME = 'Square'
+    DESCRIPTION = 'Squares a single number.'
     N_INPUTS = [int]
     N_OUTPUTS = [int]
     

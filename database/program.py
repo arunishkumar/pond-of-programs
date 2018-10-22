@@ -35,12 +35,20 @@ class AbstractProgram(object):
     """
     
     PROGRAM_NAME = ''
+    DESCRIPTION = ''
     N_INPUTS = [int]
     N_OUTPUTS = [int]
 
     def __init__(self, *args, **kwargs):
         self._args = args
         self._kwargs = kwargs
+
+    @property
+    def description(self, *args, **kwargs):
+        """
+            Returns DESCRIPTION
+        """
+        return description
 
     @property
     def program_name(self, *args, **kwargs):
